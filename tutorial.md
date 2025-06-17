@@ -113,6 +113,7 @@ allData = allData %>%
 # Data Visualization
 
 ## Net Transactions
+To get a general overview of the incoming and outgoing transactions, we make a pie chart that shows overall dollar value of payments made versus payments received. 
 <br>
 <br>
 <details>
@@ -137,11 +138,35 @@ ggplot(pieData, aes(x = "", y = abs(TotalAmount), fill = PaymentType)) +
   theme(legend.title = element_blank())
 ```
 </details>
-The pie chart below shows our overall dollar value of payments made versus payments received. 
 
 ![NetTxPie](https://github.com/mellamoadam/Venmo/blob/main/Images/NetTxPie.png)
 
 
+## Payment Initiation
+Each transaction was previously categorized based on whether the `user ` initiated the payment or request, or whether it was initiated by someone else, using both the direction of the transaction and the sign of the amount (positive or negative). By breaking down the information in the previous graph, we see how the incoming and outgoing payments are split by who initiated the payment.
+<br>
+<br>
+<details>
+<summary>Payment Initiation Code</summary>
+<br>
+  
+```r
+barData = allData %>%
+  group_by(PaymentType, PaymentInitiator) %>%
+  summarise(TotalAmount = sum(AmountTotal), .groups = "drop")
+
+
+ggplot(barData, aes(x = PaymentType, y = abs(TotalAmount), fill = PaymentInitiator)) +
+  geom_col(position = "stack") +
+  scale_fill_manual(
+    values = c("Initiated" = "#6baed6", "Other" = "#9ecae1")
+  ) +
+  labs(y = "Total Amount ($)", x = "Payment Type", fill = "Payment Initiator") +
+  theme_minimal()
+```
+</details>
+
+![NetTxPie](https://github.com/mellamoadam/Venmo/blob/main/Images/PaymentInitiation.png)
 
 
 
