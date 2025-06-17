@@ -9,7 +9,7 @@ This tutorial provides a walkthrough of the framework used to generate your venm
 <details>
 <summary>Package loading code</summary>
 <br>
-
+  
 ```r
 #install.packages("ggplot2")
 #install.packages("dplyr")
@@ -19,13 +19,11 @@ library(dplyr)
 library(tidyr)
 ```
 </details>
-
-
 ## Environment Set-Up
 <br>
 <br>
 <details>
-<summary>Package loading code</summary>
+<summary>User Inputs</summary>
 <br>
 
 ```r
