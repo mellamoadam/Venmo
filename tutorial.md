@@ -166,7 +166,38 @@ ggplot(barData, aes(x = PaymentType, y = abs(TotalAmount), fill = PaymentInitiat
 ```
 </details>
 
-![NetTxPie](https://github.com/mellamoadam/Venmo/blob/main/Images/PaymentInitiation.png)
+![PaymentInitiation](https://github.com/mellamoadam/Venmo/blob/main/Images/PaymentInitiation.png)
+
+
+
+## Venmo Balance
+The Venmo balance chart provide a visual summary of your net activity and bank transfers, using color to distinguish between positive (green) and negative (red) flow relative to the Venmo account. This offers a quick overview of your overall Venmo usage and account flow.
+<br>
+<br>
+<details>
+<summary>Venmo Balance Code</summary>
+<br>
+  
+```r
+
+# Create df with net income and bank transfers. Numbers are from the venmo balance perspective
+venmoBalaceDF = data.frame(net = sum(allData$AmountTotal), bank = sum(bankTransferDF$AmountTotal))
+
+venmoBalaceDFLong = pivot_longer(venmoBalaceDF, cols = everything(), names_to = "Tx", values_to = "balance") %>%
+  mutate(fillColor = ifelse(balance >= 0, "Positive", "Negative"))
+
+ggplot(venmoBalaceDFLong, aes(x = Tx, y = balance, fill = fillColor)) +
+  geom_col() +
+  scale_fill_manual(values = c(Positive = "#6BAF75", Negative = "#D46A6A")) +
+  scale_x_discrete(labels = c(net = "Net Payments", bank = "Bank Transfers")) +
+  labs(x="", y = "Into Venmo Account ($)", title = "Venmo Balance") +
+  theme_minimal() +
+  theme(legend.position = "none",
+    plot.title = element_text(hjust = 0.5))
+```
+</details>
+
+![VenmoBalance](https://github.com/mellamoadam/Venmo/blob/main/Images/VenmoBalance.png)
 
 
 
