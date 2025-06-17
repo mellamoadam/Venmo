@@ -110,9 +110,36 @@ allData = allData %>%
 ```
 </details>
 
-## Environment Set-Up
+# Data Visualization
+
+## Net Transactions
+<br>
+<br>
+<details>
+<summary>Net Tx Code</summary>
+<br>
+  
+```r
+pieData = allData %>%
+  group_by(PaymentType) %>%
+  summarise(TotalAmount = sum(AmountTotal))
 
 
+# Pie chart
+ggplot(pieData, aes(x = "", y = abs(TotalAmount), fill = PaymentType)) +
+  geom_col(width = 1, color = "white") +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = paste0("$", round(abs(TotalAmount), 2))), 
+            position = position_stack(vjust = 0.5), 
+            size = 4) +
+  scale_fill_manual(values = c("Received" = "#6BAF75", "Paid" = "#D46A6A")) +
+  theme_void() +
+  theme(legend.title = element_blank())
+```
+</details>
+The pie chart below shows our overall dollar value of payments made versus payments received. 
+
+![NetTxPie](https://github.com/mellamoadam/Venmo/blob/main/Images/NetTxPie.png)
 
 
 
