@@ -22,5 +22,6 @@ install.packages(c("dplyr", "ggplot2", "tidyr", "readr"))
 
 ## Notes
 The script assumes that the CSV files contain columns such as Amount (total), From, To, and DateTime.
+
 Negative amounts represent payments sent, positive amounts represent payments received.
 
